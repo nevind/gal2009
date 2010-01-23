@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>gal</groupId>
+	<artifactId>gal-client</artifactId>
+	<version>0.1</version>
+	<packaging>swf</packaging>
+	<name>GAL Client</name>
+	<description>GAL Flex client.</description>
+	
+	<parent>
+		<groupId>gal</groupId>
+		<artifactId>gal-root</artifactId>
+		<version>0.1</version>
+	</parent>
+	
+	<dependencies>
+		<dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>3.4.0.9271</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.adobe.flex.framework</groupId>
+                    <artifactId>playerglobal</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+		
+		<dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>3.4.0.9271</version>
+            <classifier>10</classifier>
+            <type>swc</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.adobe.flex</groupId>
+			<artifactId>cairngorm</artifactId>
+			<version>2.2.1</version>
+			<type>swc</type>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		
+		<sourceDirectory>src/main/flex</sourceDirectory>
+		
+		<plugins>
+			
+			<plugin>
+				
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>3.4.0</version>
+				<extensions>true</extensions>
+				
+				<dependencies>
+					<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>3.4.0.9271</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+				
+				<configuration>
+					<swf>${client.name}</swf>
+					<debug>${client.debug}</debug>
+					<useNetwork>true</useNetwork>
+					<targetPlayer>10.0.0</targetPlayer>
+					<contextRoot>/${context.root}</contextRoot>
+					<htmlName>index</htmlName>
+					<locales>
+						<locale>pl_PL</locale>
+					</locales>
+					<!-- Template address is setup in index.html template file -->
+					<templateURI>folder:/src/main/resources/template/</templateURI>
+				</configuration>
+				
+				<executions>
+					<execution>
+						<goals>
+							<goal>wrapper</goal>
+						</goals>
+					</execution>
+				</executions>
+				
+			</plugin>
+			
+		</plugins>
+		
+	</build>
+	
+</project>

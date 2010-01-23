@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:view="gal.view.*"
+				xmlns:service="gal.service.*"
+				xmlns:model="gal.model.*" 
+				creationComplete="init()" layout="absolute" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	
+	
+	<mx:Script>
+		<![CDATA[
+			[Embed(source="/assets/images/dna_chain_dark.jpg")]
+			[Bindable]
+			private var dnaImage:Class;
+			
+			public function init():void
+			{
+				var endpointUrl:String = Application.application.parameters.endpointUrl;
+				galServiceLocator.getGalService().setEndpoint(endpointUrl,"galService");
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<!-- Application background -->
+	<mx:Image id="background" source="{dnaImage}"/>
+	
+	<!-- Application main viewstack -->
+	
+	<mx:ViewStack id="mainViewStack" selectedIndex="{GalModelLocator.getInstance().mainViewState}" height="98%" width="98%" horizontalCenter="0" verticalCenter="0">
+		<view:LoginView id="loginView"/>
+		<view:MainView id="mainView"/>
+	</mx:ViewStack>
+	
+	<!-- Service locator -->
+	<service:GalServiceLocator id="galServiceLocator"/>
+	
+	<!-- Model locator -->
+	<model:GalModelLocator id="galModelLocator"/>
+	<mx:Style source="flekristal_skin.css"/>
+	
+</mx:Application>

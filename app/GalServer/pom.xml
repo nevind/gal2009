@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>gal</groupId>
+	<artifactId>gal-server</artifactId>
+	<version>0.1</version>
+	<packaging>war</packaging>
+	<name>GAL Server</name>
+	<description>GAL JEE server.</description>
+
+	<parent>
+		<groupId>gal</groupId>
+		<artifactId>gal-root</artifactId>
+		<version>0.1</version>
+	</parent>
+	
+	<dependencies>
+	
+	<!-- ============== BlazeDS Spring integration ============= -->
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>1.0.2.SR1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.flex</groupId>
+			<artifactId>spring-flex</artifactId>
+			<version>1.0.1.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>2.7.1</version>
+		</dependency>
+		
+		<!-- ====================== Spring ======================= -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>2.5.6.SEC01</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>2.5.6.SEC01</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>2.5.6.SEC01</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>2.5.6.SEC01</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tomcat-weaver</artifactId>
+			<version>2.5.6.SEC01</version>
+		</dependency>
+		
+		<!-- ===================== Spring security ================= -->
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core-tiger</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		
+		<!-- ===================== Logging ========================= -->
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>0.9.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>0.9.15</version>
+		</dependency>
+		
+		<!-- ===================== Transaction ===================== -->
+
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+			
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1-beta-1</version>
+				<configuration>
+					<warName>${context.root}</warName>
+					<webResources>
+						<resource>
+							<directory>${basedir}/../GalClient/target</directory>
+							<excludes>
+								<exclude>**/classes/</exclude>
+								<exclude>**/html-wrapper-template/</exclude>
+								<exclude>**/template.zip</exclude>
+								<exclude>**/surefire-reports/</exclude>
+							</excludes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+		
+	</build>
+	
+</project>

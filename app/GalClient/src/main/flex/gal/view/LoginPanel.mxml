@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="gal.model.*" width="298" height="104" layout="absolute" title="Helix" backgroundColor="#3EA5FC">
+	
+	<mx:Script>
+		<![CDATA[
+			import gal.model.GalModelLocator;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.AsyncResponder;
+			import gal.dto.TestDto;
+			import gal.service.GalService;
+			import gal.service.GalServiceLocator;
+			import com.adobe.cairngorm.business.ServiceLocator;
+			
+			public function loginClick(event:MouseEvent):void
+			{
+				var service:Object = (ServiceLocator.getInstance() as GalServiceLocator).getGalService();
+				var token:AsyncToken = service.login(loginInput.text, passInput.text);
+				token.addResponder(
+					new AsyncResponder(
+						function(event:ResultEvent, token:Object = null):void
+						{
+							//if (event.result.authorities.indexOf("ROLE_ADMIN") >= 0)
+							//{
+							//	Alert.show("Authorized to perform ADMIN actions.","SUCCESS");
+							//}
+							//else
+							//{
+							//	Alert.show("Not authorized to perform ADMIN actions.","FAILURE");
+							//}
+							Alert.show(event.toString(),"Event dump");
+						},
+						function(event:FaultEvent, token:Object = null):void
+						{
+							//Alert.show("User not authenticated.","ERROR");
+							Alert.show(event.toString(),"Event dump");
+						}));
+				GalModelLocator.getInstance().mainViewState = 1;
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:TextInput x="57" y="36" id="loginInput" width="111"/>
+	<mx:TextInput x="57" y="66" width="111" id="passInput" displayAsPassword="true"/>
+	<mx:Button label="Authenticate" id="loginButton" width="106" click="loginClick(event)" height="55" x="176" y="33"/>
+	<mx:Label x="17" y="38" text="login" id="loginLabel"/>
+	<mx:Label x="18" y="68" text="pass" id="passLabel"/>
+	
+</mx:Panel>
