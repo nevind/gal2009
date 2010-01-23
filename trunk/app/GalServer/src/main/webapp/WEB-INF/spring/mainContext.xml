@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:flex="http://www.springframework.org/schema/flex"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/flex 
+		http://www.springframework.org/schema/flex/spring-flex-1.0.xsd">
+
+	<!-- Init message broker -->
+	
+	<flex:message-broker>
+		<flex:secured/>
+	</flex:message-broker>
+	
+	<!-- BlazeDS remoting destionations -->
+	
+	<!-- secured remoting destination -->
+	<flex:remoting-destination ref="galService"/>
+	
+	<!-- Business logic implementation -->
+	
+	<!-- Main application bean - BlazeDS destination as well -->
+	<bean id="galService" class="gal.application.GalServiceImpl">
+		<property name="log" ref="log"/>
+		<security:intercept-methods>
+			<security:protect method="testCall" access="ROLE_ADMIN" />
+		</security:intercept-methods>
+	</bean>
+	
+	<!-- Logger bean -->
+	<bean id="log" class="org.slf4j.LoggerFactory" factory-method="getLogger">
+		<constructor-arg value="GAL_logger"/>
+	</bean>
+
+</beans>
