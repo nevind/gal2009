@@ -5,6 +5,15 @@
 	<mx:Script>
 		<![CDATA[
 			import gal.util.IconManager;
+			import mx.controls.Alert;
+			import gal.model.GalModelLocator;
+			
+			[Bindable]
+			private var model:GalModelLocator = GalModelLocator.getInstance();
+			
+			public function run():void{
+				Alert.show(model.sequence2,"Test value");
+			}
 		]]>
 	</mx:Script>
 	
@@ -29,7 +38,7 @@
 	
 	<mx:Label top="25" left="10" text="Helix" fontSize="48" fontFamily="Chintzy" color="#FFFFFF"/>
 	<mx:HBox top="20" right="10" width="100%" height="100%" horizontalAlign="right" horizontalGap="2" verticalGap="0" rollOverEffect="fakeGlow" rollOutEffect="fakeGlow">
-		<mx:Image id="runButton" source="{IconManager.runIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" buttonMode="true"/>
+		<mx:Image id="runButton" source="{IconManager.runIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" buttonMode="true" click="run();"/>
 		<mx:Image id="inputButton" source="{IconManager.inputIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" buttonMode="true"/>
 		<mx:Image id="outputButton" source="{IconManager.outputIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" buttonMode="true"/>
 		<mx:Image id="infoButton" source="{IconManager.infoIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" buttonMode="true"/>
