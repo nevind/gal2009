@@ -1,7 +1,7 @@
 
 global
 {
-	backgroundAlpha: 0.25;	
+	backgroundAlpha: 0.0;
 }
 
 /*
@@ -142,29 +142,7 @@ ColorPicker
 	downSkin: Embed(source="flekristal_skin.swf", symbol="ColorPicker_downSkin");
 	overSkin: Embed(source="flekristal_skin.swf", symbol="ColorPicker_overSkin");
 	upSkin: Embed(source="flekristal_skin.swf", symbol="ColorPicker_upSkin");
-}		
-Canvas {
-	backgroundColor: #FFFFFF;
-	backgroundAlpha: 0.65;
-}
-
-LoginView
-{
-	backgroundAlpha: 0.00;
-}
-
-MainView
-{
-	backgroundAlpha: 0.00;	
-}
-
-ActionPanel
-{
-	backgroundColor: #0000AA;
-	backgroundAlpha: 0.50;	
-}
-
-
+}	
 
 /*
 //------------------------------
@@ -596,4 +574,20 @@ Tree
 	
 }
 
+/*
+//------------------------------
+// Fonts
+//------------------------------
+*/
 
+@font-face {
+	src:url("/assets/fonts/Chintzy/chintzy.ttf");
+	fontFamily: Chintzy;
+	advancedAntiAliasing: true;
+}
+
+@font-face {
+	src:url("/assets/fonts/Chintzy/chintzys.ttf");
+	fontFamily: Chintzys;
+	advancedAntiAliasing: true;
+}
