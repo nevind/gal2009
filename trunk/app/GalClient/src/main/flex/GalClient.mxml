@@ -8,7 +8,7 @@
 	
 	<mx:Script>
 		<![CDATA[
-			[Embed(source="/assets/images/dna_chain_dark.jpg")]
+			[Embed(source="/assets/images/dna_chain_darker.jpg")]
 			[Bindable]
 			private var dnaImage:Class;
 			

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" title="Action" layout="absolute">
-	<mx:Canvas top="30" left="10" bottom="10" right="10">
-		
-	</mx:Canvas>
-</mx:Panel>
