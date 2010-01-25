@@ -3,6 +3,7 @@
  */
 package pl.edu.pw.elka.mbi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class NeedlemanWunsch {
 	private String sequence1;
 	private String sequence2;
 	
-	private double[][] fMatrix;
+	private FMatrixElement[][] fMatrix;
 	private double[][] similarityMatrix;
 	private double gapPenalty;
 	
@@ -33,23 +34,33 @@ public class NeedlemanWunsch {
 	}
 	
 	private void compileFMatrix() {
-		this.fMatrix = new double[this.sequence1.length()+1][this.sequence2.length()+1];
+		this.fMatrix = new FMatrixElement[this.sequence1.length()+1][this.sequence2.length()+1];
 		
 		for (int y = 0; y <= this.sequence1.length(); y++) {  //inicjalizacja macierzy
-			this.fMatrix[y][0] = this.gapPenalty * y;
+			this.fMatrix[y][0] = new FMatrixElement();
+			this.fMatrix[y][0].setValue(this.gapPenalty * y);
 		}
 		
 		for (int x = 0; x <= this.sequence2.length(); x++) { //inicjalizacja macierzy
-			this.fMatrix[0][x] = this.gapPenalty * x;
+			this.fMatrix[0][x] = new FMatrixElement();
+			this.fMatrix[0][x].setValue(this.gapPenalty * x);
 		}
 		
 		for (int y = 1; y < this.sequence1.length() + 1; y++) {  //wyliczenie macierzy korzystajc z macierzy podobienstwa
-			for (int x = 1; x < this.sequence2.length() +1; x++) {                    
-				double k = this.fMatrix[y-1][x-1] + getSimilarity(this.sequence1.charAt(y-1), this.sequence2.charAt(x-1));
-				double l = this.fMatrix[y-1][x] + this.gapPenalty;
-				double m = this.fMatrix[y][x-1] + this.gapPenalty;
-				k = Math.max(k,l);
-				this.fMatrix[y][x] = Math.max(k,m);
+			for (int x = 1; x < this.sequence2.length() +1; x++) {
+				this.fMatrix[y][x] = new FMatrixElement();
+				double k = this.fMatrix[y-1][x-1].getValue() + getSimilarity(this.sequence1.charAt(y-1), this.sequence2.charAt(x-1));
+				double l = this.fMatrix[y-1][x].getValue() + this.gapPenalty;
+				double m = this.fMatrix[y][x-1].getValue() + this.gapPenalty;
+				double max = Math.max(k,l);
+				max = Math.max(max, m);
+				this.fMatrix[y][x].setValue(max);
+				if(k == max)
+					this.fMatrix[y][x].setDiagonal(true);
+				if(l == max)
+					this.fMatrix[y][x].setUp(true);
+				if(m == max)
+					this.fMatrix[y][x].setLeft(true);
 			}
 		}
 	}
@@ -74,13 +85,86 @@ public class NeedlemanWunsch {
 	
 	private void prepareResults() {
 		this.result = new ResultDTO();
-		this.result.setListOfSequences(this.generateListOfSequences());
-		this.result.setSimilarityValue(this.fMatrix[this.sequence1.length()][this.sequence2.length()]);
+		this.result.setListOfSequences(this.generateListOfSequences(this.sequence1.length(), this.sequence2.length(), null, null));
+		this.result.setSimilarityValue(this.fMatrix[this.sequence1.length()][this.sequence2.length()].getValue());
 	}
 	
-	private List<String> generateListOfSequences() {
+	private List<String> generateListOfSequences(int seq1Pos, int seq2Pos, String ch1, String ch2) {
+		List<String> resultList = new ArrayList<String>();
+		StringBuilder chain1;
+		StringBuilder chain2;
+		if(ch1 == null)
+			chain1 = new StringBuilder();
+		else
+			chain1 = new StringBuilder(ch1);
+		if(ch2 == null)
+			chain2 = new StringBuilder();
+		else
+			chain2 = new StringBuilder(ch2);
 		
-		return null;
+		int sequence1Pos = seq1Pos;
+		int sequence2Pos = seq2Pos;
+		
+		while(sequence1Pos > 0 && sequence2Pos > 0) {
+			int count = 0;
+			if(fMatrix[sequence1Pos][sequence2Pos].isDiagonal())
+				count ++;
+			if(fMatrix[sequence1Pos][sequence2Pos].isLeft())
+				count ++;
+			if(fMatrix[sequence1Pos][sequence2Pos].isUp())
+				count ++;
+			
+			if(count > 1)
+				System.out.println(count + " " + sequence1Pos + " " +sequence2Pos+ " ");
+			
+			int tmpSeq1Pos = sequence1Pos;
+			int tmpSeq2Pos = sequence2Pos;
+			
+			if(fMatrix[tmpSeq1Pos][tmpSeq2Pos].isDiagonal()) {
+				if(count > 1) {
+					resultList.addAll(generateListOfSequences(tmpSeq1Pos-1, tmpSeq2Pos-1, new StringBuilder(chain1).insert(0, sequence1.charAt(tmpSeq1Pos-1)).toString(), new StringBuilder(chain2).insert(0, sequence2.charAt(tmpSeq2Pos-1)).toString()));
+					count --;
+				} else {
+					sequence1Pos --;
+					sequence2Pos --;
+					chain1.insert(0, sequence1.charAt(sequence1Pos));
+					chain2.insert(0, sequence2.charAt(sequence2Pos));
+				}
+			}
+			
+			if(fMatrix[tmpSeq1Pos][tmpSeq2Pos].isLeft()) {
+				if(count > 1) {
+					resultList.addAll(generateListOfSequences(tmpSeq1Pos, tmpSeq2Pos-1, new StringBuilder(chain1).insert(0, '-').toString(), new StringBuilder(chain2).insert(0, sequence2.charAt(tmpSeq2Pos-1)).toString()));
+					count --;
+				} else {
+					sequence2Pos --;
+					chain1.insert(0, '-');
+					chain2.insert(0, sequence2.charAt(sequence2Pos));
+				}
+			}
+			
+			if(fMatrix[tmpSeq1Pos][tmpSeq1Pos].isUp()) {
+				sequence1Pos --;
+				chain1.insert(0, sequence1.charAt(sequence1Pos));
+				chain2.insert(0, '-');
+			}
+		}
+		
+		while(sequence1Pos>0) {
+			sequence1Pos --;
+			chain2.insert(0, '-');
+		}
+		
+		while(sequence2Pos>0) {
+			sequence2Pos --;
+			chain1.insert(0, '-');
+		}
+		
+		System.out.println("Adding chain 1: "+chain1);
+		resultList.add(chain1.toString());
+		System.out.println("Adding chain 2: "+chain2);
+		resultList.add(chain2.toString());
+		return resultList;
 	}
 	
 	/**
@@ -114,14 +198,14 @@ public class NeedlemanWunsch {
 	/**
 	 * @return the fMatrix
 	 */
-	public double[][] getFMatrix() {
+	public FMatrixElement[][] getFMatrix() {
 		return fMatrix;
 	}
 	
 	/**
 	 * @param matrix the fMatrix to set
 	 */
-	public void setFMatrix(double[][] matrix) {
+	public void setFMatrix(FMatrixElement[][] matrix) {
 		fMatrix = matrix;
 	}
 	
@@ -170,10 +254,14 @@ public class NeedlemanWunsch {
 	private void printResults() {
 		for(int j = 0; j<=this.sequence2.length(); j++) {
 			for(int i = 0; i<=this.sequence1.length();i++) {
-				System.out.print(this.fMatrix[i][j]+", ");
+				System.out.print(this.fMatrix[i][j].getValue()+", ");
 			}
 			System.out.println();
 		}
+		System.out.println();
+		System.out.println();
+		for(String s : this.result.getListOfSequences())
+			System.out.println(s);
 	}
 	
 }
