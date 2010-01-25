@@ -5,7 +5,7 @@ package gal.service
 	import mx.messaging.Channel;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
-	import mx.rpc.AsyncToken;
+	import mx.rpc.IResponder;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	public class GalService
@@ -38,14 +38,14 @@ package gal.service
 		}
 		
 		// Do przerobienia na Swiz, odpowiednia obsluga przez beany i respondery
-		public function login(login:String, password:String):AsyncToken
+		public function login(responder:IResponder, login:String, password:String):void
 		{
-			return channelSet.login(login,password);
+			return channelSet.login(login,password).addResponder(responder);
 		}
 		
-		public function logout():AsyncToken
+		public function logout(responder:IResponder):void
 		{
-			return channelSet.logout();
+			return channelSet.logout().addResponder(responder);
 		}
 		
 		public function test(testDto:TestDto):void

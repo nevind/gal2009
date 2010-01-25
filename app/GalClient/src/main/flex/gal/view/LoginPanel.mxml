@@ -3,41 +3,22 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import gal.model.GalModelLocator;
-			import mx.rpc.events.FaultEvent;
-			import mx.controls.Alert;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.AsyncToken;
-			import mx.rpc.AsyncResponder;
-			import gal.dto.TestDto;
-			import gal.service.GalService;
-			import gal.service.GalServiceLocator;
 			import com.adobe.cairngorm.business.ServiceLocator;
+			
+			import gal.events.LoginEvent;
+			import gal.model.enums.MainViewStates;
+			import gal.service.GalServiceLocator;
+			import gal.model.GalModelLocator;
+			
+			import mx.controls.Alert;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
 			
 			public function loginClick(event:MouseEvent):void
 			{
-				var service:Object = (ServiceLocator.getInstance() as GalServiceLocator).getGalService();
-				var token:AsyncToken = service.login(loginInput.text, passInput.text);
-				token.addResponder(
-					new AsyncResponder(
-						function(event:ResultEvent, token:Object = null):void
-						{
-							//if (event.result.authorities.indexOf("ROLE_ADMIN") >= 0)
-							//{
-							//	Alert.show("Authorized to perform ADMIN actions.","SUCCESS");
-							//}
-							//else
-							//{
-							//	Alert.show("Not authorized to perform ADMIN actions.","FAILURE");
-							//}
-							Alert.show(event.toString(),"Event dump");
-						},
-						function(event:FaultEvent, token:Object = null):void
-						{
-							//Alert.show("User not authenticated.","ERROR");
-							Alert.show(event.toString(),"Event dump");
-						}));
-				GalModelLocator.getInstance().mainViewState = 1;
+				new LoginEvent(loginInput.text, passInput.text).dispatch();
 			}
 			
 		]]>

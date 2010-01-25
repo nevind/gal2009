@@ -3,7 +3,7 @@
 				xmlns:view="gal.view.*"
 				xmlns:service="gal.service.*"
 				xmlns:model="gal.model.*" 
-				creationComplete="init()" layout="absolute" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				creationComplete="init()" layout="absolute" horizontalScrollPolicy="off" verticalScrollPolicy="off" xmlns:control="gal.control.*">
 	
 	
 	<mx:Script>
@@ -26,9 +26,12 @@
 	
 	<!-- Application main viewstack -->
 	
-	<mx:ViewStack id="mainViewStack" selectedIndex="{GalModelLocator.getInstance().mainViewState}" height="98%" width="98%" horizontalCenter="0" verticalCenter="0">
-		<view:LoginView id="loginView"/>
-		<view:MainView id="mainView"/>
+	<mx:Dissolve id="showEffect" alphaFrom="0.3" alphaTo="1" duration="300"/>
+	<mx:Dissolve id="hideEffect" alphaFrom="1" alphaTo="0.3" duration="300"/>
+	
+	<mx:ViewStack id="mainViewStack" selectedIndex="{GalModelLocator.getInstance().mainViewState}" height="98%" width="98%" horizontalCenter="0" verticalCenter="0" creationCompleteEffect="showEffect">
+		<view:LoginView id="loginView" showEffect="showEffect" hideEffect="hideEffect"/>
+		<view:MainView id="mainView" showEffect="showEffect" hideEffect="hideEffect"/>
 	</mx:ViewStack>
 	
 	<!-- Service locator -->
@@ -36,6 +39,10 @@
 	
 	<!-- Model locator -->
 	<model:GalModelLocator id="galModelLocator"/>
+	
+	<!-- Front controller -->
+	<control:GalController id="galController"/>
+	
 	<mx:Style source="flekristal_skin.css"/>
 	
 </mx:Application>
