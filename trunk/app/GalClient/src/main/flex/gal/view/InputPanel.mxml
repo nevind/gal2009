@@ -1,21 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:validation="gal.view.validators.*" layout="absolute">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:validation="gal.view.validators.*" xmlns:util="gal.util.*" layout="absolute">
 	
 	<mx:Script>
 		<![CDATA[
 			import gal.model.GalModelLocator;
 			import gal.util.IconManager;
+			import mx.controls.Alert;
 			
 			[Bindable]
 			private var model:GalModelLocator = GalModelLocator.getInstance();
 			
+			public function runSequenceHandler():void{
+				if (inputValidationWrapper.check())
+				{
+					model.gapPenalty = parseFloat(gapPenaltyInput.text);
+					model.sequence1 = sequenceInput1.text;
+					model.sequence2 = sequenceInput2.text;
+					// TODO: dispatch business event here
+					Alert.show("success","");
+				}
+				else
+				{
+					Alert.show("Provided data is invalid. Please correct it and try again","");
+				}
+			}
+			
 		]]>
 	</mx:Script>
 	
-	<validation:ConfusionMatrixValidator id="confusionMatrixValidator" source="{confusionGrid}" property="dataProvider" confusionMatrixError="Confusion matrix is invalid" trigger="{confusionGrid}" triggerEvent="focusOut"/>
-	<mx:NumberValidator id="gapPenaltyValidator" source="{gapPenaltyInput}" property="text" required="true" requiredFieldError="Gap penalty is required for further processing"/>
-	<validation:InputSequenceValidator id="inputSequence1Validator" source="{sequenceInput1}" property="text" required="true" requiredFieldError="DNA sequence is required for further processing" sequenceError="DNA sequence is invalid"/>
-	<validation:InputSequenceValidator id="inputSequence2Validator" source="{sequenceInput2}" property="text" required="true" requiredFieldError="DNA sequence is required for further processing" sequenceError="DNA sequence is invalid"/>
+	<util:ValidatorWrapper id="inputValidationWrapper">
+		<util:validators>
+			<validation:ConfusionMatrixValidator id="confusionMatrixValidator" source="{confusionGrid}" property="dataProvider" confusionMatrixError="Confusion matrix is invalid" trigger="{confusionGrid}" triggerEvent="focusOut"/>
+			<mx:NumberValidator id="gapPenaltyValidator" source="{gapPenaltyInput}" property="text" required="true" requiredFieldError="Gap penalty is required for further processing"/>
+			<validation:InputSequenceValidator id="inputSequence1Validator" source="{sequenceInput1}" property="text" required="true" requiredFieldError="DNA sequence is required for further processing" sequenceError="DNA sequence is invalid"/>
+			<validation:InputSequenceValidator id="inputSequence2Validator" source="{sequenceInput2}" property="text" required="true" requiredFieldError="DNA sequence is required for further processing" sequenceError="DNA sequence is invalid"/>
+		</util:validators>
+	</util:ValidatorWrapper>
 	<mx:HBox top="35" left="10" right="10" bottom="10" horizontalGap="20">
 		<mx:VBox verticalGap="15" height="100%">
 			<mx:Label fontFamily="Chintzy" fontSize="16" text="Confusion Matrix" color="#FFFFFF"/>

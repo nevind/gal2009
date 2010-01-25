@@ -2,6 +2,9 @@ package gal.model
 {
 	import com.adobe.cairngorm.model.IModelLocator;
 	
+	import gal.model.enums.ActionViewStates;
+	import gal.model.enums.MainViewStates;
+	
 	import mx.collections.ArrayCollection;
 
 	[Bindable]
@@ -21,7 +24,8 @@ package gal.model
 		
 		public function clear():void
 		{
-			mainViewState = 0;
+			mainViewState = MainViewStates.LOGIN_VIEW;
+			actionViewState = ActionViewStates.INPUT_VIEW;
 			confusionMatrix = new ArrayCollection([new ConfusionMatrixRow(),new ConfusionMatrixRow(),new ConfusionMatrixRow(),new ConfusionMatrixRow()]);
 			gapPenalty = 0;
 			sequence1 = "";
@@ -39,6 +43,19 @@ package gal.model
 		{
 			this._mainViewState = _mainViewState;
 		}
+		
+		private var _actionViewState: Number;
+
+		public function get actionViewState():Number
+		{
+			return _actionViewState;
+		}
+
+		public function set actionViewState(value:Number):void
+		{
+			_actionViewState = value;
+		}
+
 		
 		private var _confusionMatrix:ArrayCollection;
 
