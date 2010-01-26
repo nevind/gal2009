@@ -28,7 +28,7 @@
 		<mx:HBox>
 			<mx:VBox>
 				<mx:Label fontFamily="Chintzy" fontSize="16" text="Similarity value {model.similarity}" color="#FFFFFF" />
-				<mx:Label fontFamily="Chintzy" fontSize="16" text="Output Visualization {model.outputIndex} of {model.outputSequence.length/2}" color="#FFFFFF" />
+				<mx:Label fontFamily="Chintzy" fontSize="16" text="Output Visualization {model.outputIndex+1} of {model.outputSequence.length/2}" color="#FFFFFF" />
 			</mx:VBox>
 			<mx:Image id="previousButton" source="{IconManager.previousIcon}" click="previous()"
 				rollOverEffect="glowInImage" rollOutEffect="glowOutImage" />
