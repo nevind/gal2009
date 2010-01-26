@@ -19,6 +19,7 @@ package gal.responders
 		{
 			var resultEvent:ResultEvent = data as ResultEvent;
 			var model:GalModelLocator = GalModelLocator.getInstance();
+			model.clear();
 			if (resultEvent.result.authorities.indexOf("ROLE_ADMIN") >= 0)
 			{
 				model.mainViewState = MainViewStates.MAIN_VIEW;

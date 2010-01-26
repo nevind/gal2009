@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="gal.model.*" width="298" height="104" layout="absolute" title="Helix" backgroundColor="#3EA5FC">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="gal.model.*" width="298" height="104" layout="absolute" title="Helix" color="#FFFFFF">
 	
 	<mx:Script>
 		<![CDATA[
@@ -19,15 +19,17 @@
 			public function loginClick(event:MouseEvent):void
 			{
 				new LoginEvent(loginInput.text, passInput.text).dispatch();
+				loginInput.text = "";
+				passInput.text = "";
 			}
 			
 		]]>
 	</mx:Script>
 	
-	<mx:TextInput x="57" y="36" id="loginInput" width="111"/>
-	<mx:TextInput x="57" y="66" width="111" id="passInput" displayAsPassword="true"/>
+	<mx:TextInput x="57" y="36" id="loginInput" width="111" color="#FFFFFF"/>
+	<mx:TextInput x="57" y="66" width="111" id="passInput" displayAsPassword="true" color="#FFFFFF"/>
 	<mx:Button label="Authenticate" id="loginButton" width="106" click="loginClick(event)" height="55" x="176" y="33"/>
-	<mx:Label x="17" y="38" text="login" id="loginLabel"/>
-	<mx:Label x="18" y="68" text="pass" id="passLabel"/>
+	<mx:Label x="17" y="38" text="login" id="loginLabel" color="#FFFFFF"/>
+	<mx:Label x="18" y="68" text="pass" id="passLabel" color="#FFFFFF"/>
 	
 </mx:Panel>
