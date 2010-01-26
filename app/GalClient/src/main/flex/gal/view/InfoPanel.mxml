@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
 	<mx:VBox top="30" left="10" right="10" bottom="10">
-		<mx:TextArea id="infoArea" fontFamily="Chintzy" fontSize="20" color="#FFFFFF" focusAlpha="0" borderStyle="none" width="100%" height="100%">
+		<mx:TextArea id="infoArea" fontFamily="Chintzy" fontSize="20" color="#FFFFFF" focusAlpha="0" borderStyle="none"
+			width="100%" height="100%">
 			<mx:htmlText>
 				Global ALigner (GAL) is an RIA implementation of Needleman-Wunsch
 				global sequence alignment algorithm. GAL uses the algorithm to 

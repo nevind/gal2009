@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
-		  layout="absolute">
-	
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+
 	<mx:Metadata>
 		[Event(name="run", type="gal.view.events.RunEvent")]
 	</mx:Metadata>
-	
+
 	<mx:Script>
 		<![CDATA[
 			import gal.events.LogoutEvent;
@@ -14,58 +13,53 @@
 			import gal.model.enums.MainViewStates;
 			import gal.util.IconManager;
 			import gal.view.events.RunEvent;
-			
+
 			[Bindable]
-			private var model:GalModelLocator = GalModelLocator.getInstance();
-			
-			public function run():void{
+			private var model: GalModelLocator = GalModelLocator.getInstance();
+
+			public function run(): void {
 				dispatchEvent(new RunEvent(RunEvent.RUN));
 			}
-			
-			private function logout():void{
+
+			private function logout(): void {
 				new LogoutEvent().dispatch();
 			}
-			
-			private function showInputView():void{
+
+			private function showInputView(): void {
 				model.actionViewState = ActionViewStates.INPUT_VIEW;
 			}
-			
-			private function showOutputView():void{
+
+			private function showOutputView(): void {
 				model.actionViewState = ActionViewStates.OUTPUT_VIEW;
 			}
-			
-			private function showInfoView():void{
+
+			private function showInfoView(): void {
 				model.actionViewState = ActionViewStates.INFO_VIEW;
 			}
 		]]>
 	</mx:Script>
-	
-	<mx:Glow id="glowInImage" duration="100" 
-			 alphaFrom="0.0" alphaTo="1.0" 
-			 blurXFrom="10.0" blurXTo="50.0" 
-			 blurYFrom="10.0" blurYTo="50.0"
-			 strength="3"
-			 color="#50D2FF"/>
-	
-	<mx:Glow id="glowOutImage" duration="100" 
-			 alphaFrom="1.0" alphaTo="0.0" 
-			 blurXFrom="50.0" blurXTo="10.0"
-			 blurYFrom="50.0" blurYTo="10.0"
-			 strength="3"
-			 color="#50D2FF" />
-	<mx:Glow id="fakeGlow" duration="100"
-			 alphaFrom="0.0" alphaTo="0.0"
-			 blurXFrom="10.0" blurXTo="50.0"
-			 blurYFrom="10.0" blurYTo="50.0"
-			 color="#FFFFFF" />
-	
-	<mx:Label top="25" left="10" text="Helix" fontSize="48" fontFamily="Chintzy" color="#FFFFFF"/>
-	<mx:HBox top="20" right="10" width="100%" height="100%" horizontalAlign="right" horizontalGap="2" verticalGap="0" rollOverEffect="fakeGlow" rollOutEffect="fakeGlow">
-		<mx:Image id="runButton" source="{IconManager.runIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" click="run();"/>
-		<mx:Image id="inputButton" source="{IconManager.inputIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" click="showInputView();"/>
-		<mx:Image id="outputButton" source="{IconManager.outputIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" click="showOutputView();"/>
-		<mx:Image id="infoButton" source="{IconManager.infoIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" click="showInfoView();"/>
-		<mx:Image id="logoutButton" source="{IconManager.logoutIcon}" rollOverEffect="glowInImage" rollOutEffect="glowOutImage" click="logout();"/>
+
+	<mx:Glow id="glowInImage" duration="100" alphaFrom="0.0" alphaTo="1.0" blurXFrom="10.0" blurXTo="50.0"
+		blurYFrom="10.0" blurYTo="50.0" strength="3" color="#50D2FF" />
+
+	<mx:Glow id="glowOutImage" duration="100" alphaFrom="1.0" alphaTo="0.0" blurXFrom="50.0" blurXTo="10.0"
+		blurYFrom="50.0" blurYTo="10.0" strength="3" color="#50D2FF" />
+	<mx:Glow id="fakeGlow" duration="100" alphaFrom="0.0" alphaTo="0.0" blurXFrom="10.0" blurXTo="50.0" blurYFrom="10.0"
+		blurYTo="50.0" color="#FFFFFF" />
+
+	<mx:Label top="25" left="10" text="Helix" fontSize="48" fontFamily="Chintzy" color="#FFFFFF" />
+	<mx:HBox top="20" right="10" width="100%" height="100%" horizontalAlign="right" horizontalGap="2" verticalGap="0"
+		rollOverEffect="fakeGlow" rollOutEffect="fakeGlow">
+		<mx:Image id="runButton" source="{IconManager.runIcon}" rollOverEffect="glowInImage"
+			rollOutEffect="glowOutImage" click="run();" />
+		<mx:Image id="inputButton" source="{IconManager.inputIcon}" rollOverEffect="glowInImage"
+			rollOutEffect="glowOutImage" click="showInputView();" />
+		<mx:Image id="outputButton" source="{IconManager.outputIcon}" rollOverEffect="glowInImage"
+			rollOutEffect="glowOutImage" click="showOutputView();" />
+		<mx:Image id="infoButton" source="{IconManager.infoIcon}" rollOverEffect="glowInImage"
+			rollOutEffect="glowOutImage" click="showInfoView();" />
+		<mx:Image id="logoutButton" source="{IconManager.logoutIcon}" rollOverEffect="glowInImage"
+			rollOutEffect="glowOutImage" click="logout();" />
 	</mx:HBox>
-	
+
 </mx:Panel>

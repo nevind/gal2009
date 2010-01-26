@@ -12,7 +12,7 @@ public class FMatrixElement {
 	boolean up;
 	boolean left;
 	boolean diagonal;
-	
+
 	/**
 	 * 
 	 */
@@ -30,7 +30,8 @@ public class FMatrixElement {
 	}
 
 	/**
-	 * @param value the value to set
+	 * @param value
+	 *            the value to set
 	 */
 	public void setValue(double value) {
 		this.value = value;
@@ -44,7 +45,8 @@ public class FMatrixElement {
 	}
 
 	/**
-	 * @param up the up to set
+	 * @param up
+	 *            the up to set
 	 */
 	public void setUp(boolean up) {
 		this.up = up;
@@ -58,7 +60,8 @@ public class FMatrixElement {
 	}
 
 	/**
-	 * @param left the left to set
+	 * @param left
+	 *            the left to set
 	 */
 	public void setLeft(boolean left) {
 		this.left = left;
@@ -72,7 +75,8 @@ public class FMatrixElement {
 	}
 
 	/**
-	 * @param diagonal the diagonal to set
+	 * @param diagonal
+	 *            the diagonal to set
 	 */
 	public void setDiagonal(boolean diagonal) {
 		this.diagonal = diagonal;

@@ -1,8 +1,8 @@
 package gal.application;
 
-import gal.dto.TestDto;
+import gal.needleman.wunsch.RequestDTO;
+import gal.needleman.wunsch.ResultDTO;
 
-public interface GalService
-{
-	public void testCall(TestDto dto);
+public interface GalService {
+	public ResultDTO runSequence(RequestDTO requestDto);
 }

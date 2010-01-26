@@ -45,6 +45,13 @@
 			<type>swc</type>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.efflex</groupId>
+			<artifactId>efflex</artifactId>
+			<version>0.03</version>
+			<type>swc</type>
+		</dependency>
+		
 	</dependencies>
 	
 	<build>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" dataChange="onDataChange(event)">
+	<mx:Script>
+		<![CDATA[
+			import gal.util.IconManager;
+
+			import mx.events.FlexEvent;
+
+			private var value:String="";
+
+			protected function onDataChange(event:FlexEvent):void
+			{
+				if (data!=null)
+				{
+					value = data as String;
+
+					switch(value)
+					{
+						case "A":renderImage.source = IconManager.adenineImg;break;
+						case "C":renderImage.source = IconManager.cytosineImg;break;
+						case "G":renderImage.source = IconManager.guanineImg;break;
+						case "T":renderImage.source = IconManager.thymineImg;break;
+						case "-":renderImage.source = IconManager.gapImg;break;
+						default :renderImage.source = IconManager.errorImg;break;
+					}
+				}
+				else
+				{
+					renderImage.source = IconManager.errorImg;
+				}
+			}
+
+		]]>
+	</mx:Script>
+
+	<mx:Image id="renderImage" width="60" height="15"/>
+
+</mx:Canvas>
