@@ -1,13 +1,16 @@
 package gal.model {
 	import com.adobe.cairngorm.model.IModelLocator;
 
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+
 	import gal.model.enums.ActionViewStates;
 	import gal.model.enums.MainViewStates;
 
 	import mx.collections.ArrayCollection;
 
 	[Bindable]
-	public class GalModelLocator implements IModelLocator {
+	public class GalModelLocator extends EventDispatcher implements IModelLocator {
 		public function GalModelLocator() {
 			clear();
 		}
@@ -28,6 +31,12 @@ package gal.model {
 			_outputIndex = -1;
 			sequence1 = "";
 			sequence2 = "";
+			dispatchEvent(new Event("sequenceSelectionChange"));
+		}
+
+		public function refreshOutput():void{
+			_outputIndex = 0;
+			dispatchEvent(new Event("sequenceSelectionChange"));
 		}
 
 		private var _mainViewState: Number;
@@ -119,8 +128,10 @@ package gal.model {
 		}
 
 		public function set outputIndex(value: Number): void {
-			if ((value >= 0) && (value <= outputSequence.length / 2))
+			if ((value >= 0) && (value < outputSequence.length / 2)) {
 				_outputIndex = value;
+				dispatchEvent(new Event("sequenceSelectionChange"));
+			}
 		}
 
 		private var _outputSequence: ArrayCollection;
@@ -133,22 +144,25 @@ package gal.model {
 			_outputSequence = value;
 		}
 
+		[Bindable(event="sequenceSelectionChange")]
 		public function get output1(): String {
 			return sequenceAt(2 * outputIndex);
 		}
 
+		[Bindable(event="sequenceSelectionChange")]
 		public function get output2(): String {
 			return sequenceAt(2 * outputIndex + 1);
 		}
 
 		private function sequenceAt(ind: Number): String {
 			var length: Number = outputSequence.length;
-			if (length == 0) return "-";
+			if (length == 0)
+				return "-";
 			else if ((ind >= 0) && (ind <= length)) {
 				var result: String = outputSequence.getItemAt(ind) as String;
 				return result;
-			}
-			else return "?";
+			} else
+				return "?";
 		}
 	}
 }
