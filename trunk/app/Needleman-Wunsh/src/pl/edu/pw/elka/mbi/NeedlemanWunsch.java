@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class NeedlemanWunsch {
 	
+	private static final int MAX_RESULTS_COUNT = 100;
+	
+	int resultsCount = 0;
+	
 	private String sequence1;
 	private String sequence2;
 	
@@ -90,6 +94,9 @@ public class NeedlemanWunsch {
 	}
 	
 	private List<String> generateListOfSequences(int seq1Pos, int seq2Pos, String ch1, String ch2) {
+		if(this.resultsCount >= MAX_RESULTS_COUNT)
+			return new ArrayList<String>();
+		
 		List<String> resultList = new ArrayList<String>();
 		StringBuilder chain1;
 		StringBuilder chain2;
@@ -113,9 +120,6 @@ public class NeedlemanWunsch {
 				count ++;
 			if(fMatrix[sequence1Pos][sequence2Pos].isUp())
 				count ++;
-			
-			if(count > 1)
-				System.out.println(count + " " + sequence1Pos + " " +sequence2Pos+ " ");
 			
 			int tmpSeq1Pos = sequence1Pos;
 			int tmpSeq2Pos = sequence2Pos;
@@ -143,7 +147,7 @@ public class NeedlemanWunsch {
 				}
 			}
 			
-			if(fMatrix[tmpSeq1Pos][tmpSeq1Pos].isUp()) {
+			if(fMatrix[tmpSeq1Pos][tmpSeq2Pos].isUp()) {
 				sequence1Pos --;
 				chain1.insert(0, sequence1.charAt(sequence1Pos));
 				chain2.insert(0, '-');
@@ -152,18 +156,21 @@ public class NeedlemanWunsch {
 		
 		while(sequence1Pos>0) {
 			sequence1Pos --;
+			chain1.insert(0, sequence1.charAt(sequence1Pos));
 			chain2.insert(0, '-');
 		}
 		
 		while(sequence2Pos>0) {
 			sequence2Pos --;
 			chain1.insert(0, '-');
+			chain2.insert(0, sequence2.charAt(sequence2Pos));
 		}
 		
-		System.out.println("Adding chain 1: "+chain1);
-		resultList.add(chain1.toString());
-		System.out.println("Adding chain 2: "+chain2);
-		resultList.add(chain2.toString());
+		if(this.resultsCount < 100) {
+			resultList.add(chain1.toString());
+			resultList.add(chain2.toString());
+			this.resultsCount++;
+		}
 		return resultList;
 	}
 	
@@ -260,8 +267,16 @@ public class NeedlemanWunsch {
 		}
 		System.out.println();
 		System.out.println();
-		for(String s : this.result.getListOfSequences())
-			System.out.println(s);
+		if(this.result != null && this.result.getListOfSequences() != null) {
+			boolean flag = true;
+			for(String s : this.result.getListOfSequences()) {
+				System.out.println(s);
+				flag = !flag;
+				if(flag)
+					System.out.println();
+			}
+		}
+	System.out.println();
 	}
 	
 }
