@@ -3,7 +3,7 @@ package gal.responders
 	import com.adobe.cairngorm.business.ServiceLocator;
 	
 	import gal.model.GalModelLocator;
-	import gal.model.enums.ActionViewStates;
+	import gal.model.enums.MainViewStates;
 	import gal.service.GalServiceLocator;
 	
 	import mx.controls.Alert;
@@ -24,7 +24,7 @@ package gal.responders
 			var service:Object = (ServiceLocator.getInstance() as GalServiceLocator).getGalService();
 			var model:GalModelLocator = GalModelLocator.getInstance();
 			
-			model.clear();
+			model.mainViewState = MainViewStates.LOGIN_VIEW;
 		}
 		
 		public function fault(data: Object):void
@@ -33,7 +33,7 @@ package gal.responders
 			var service:Object = (ServiceLocator.getInstance() as GalServiceLocator).getGalService();
 			var model:GalModelLocator = GalModelLocator.getInstance();
 			
-			model.clear();
+			model.mainViewState = MainViewStates.LOGIN_VIEW;
 			service.disconnectAll();
 			
 			Alert.show("Application fault - please restart and try again", "");
