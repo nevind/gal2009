@@ -21,7 +21,8 @@ public class ResultDTO {
 	}
 
 	/**
-	 * @param listOfSequences the listOfSequences to set
+	 * @param listOfSequences
+	 *            the listOfSequences to set
 	 */
 	public void setListOfSequences(List<String> listOfSequences) {
 		this.listOfSequences = listOfSequences;
@@ -35,10 +36,11 @@ public class ResultDTO {
 	}
 
 	/**
-	 * @param similarityValue the similarityValue to set
+	 * @param similarityValue
+	 *            the similarityValue to set
 	 */
 	public void setSimilarityValue(double similarityValue) {
 		this.similarityValue = similarityValue;
 	}
-	
+
 }

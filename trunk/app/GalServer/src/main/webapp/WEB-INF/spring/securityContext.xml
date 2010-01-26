@@ -13,7 +13,6 @@
 	<authentication-provider>
 		<user-service>
 			<user name="oltar" password="admin" authorities="ROLE_ADMIN" />
-			<user name="user" password="haslo" authorities="ROLE_USER" />
 		</user-service>
 	</authentication-provider>
 	

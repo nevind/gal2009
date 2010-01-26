@@ -18,29 +18,30 @@
 		http://www.springframework.org/schema/flex/spring-flex-1.0.xsd">
 
 	<!-- Init message broker -->
-	
+
+	<!-- Per client authentication is very important - otherwise "An Authentication object was not found in the SecurityContext" -->
 	<flex:message-broker>
-		<flex:secured/>
+		<flex:secured per-client-authentication="true"/>
 	</flex:message-broker>
-	
+
 	<!-- BlazeDS remoting destionations -->
-	
+
 	<!-- secured remoting destination -->
 	<flex:remoting-destination ref="galService"/>
-	
+
 	<!-- Business logic implementation -->
-	
+
 	<!-- Main application bean - BlazeDS destination as well -->
 	<bean id="galService" class="gal.application.GalServiceImpl">
 		<property name="log" ref="log"/>
 		<security:intercept-methods>
-			<security:protect method="testCall" access="ROLE_ADMIN" />
+			<security:protect method="runSequence" access="ROLE_ADMIN" />
 		</security:intercept-methods>
 	</bean>
-	
+
 	<!-- Logger bean -->
 	<bean id="log" class="org.slf4j.LoggerFactory" factory-method="getLogger">
-		<constructor-arg value="GAL_logger"/>
+		<constructor-arg value="HELIX"/>
 	</bean>
 
 </beans>

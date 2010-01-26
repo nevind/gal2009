@@ -21,10 +21,11 @@ package gal.util {
 		public function push(validator: Validator): void {
 			_validators.push(validator);
 		}
-		
+
 		public function check(): Boolean {
 			var validatorErrorArray: Array = Validator.validateAll(validators);
 			return (validatorErrorArray.length == 0);
 		}
 	}
 }
+
