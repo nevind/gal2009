@@ -6,10 +6,6 @@ package gal.util {
 		[Bindable]
 		public static var runIcon: Class;
 
-		[Embed(source="/assets/icons/run_gray_48x48.png")]
-		[Bindable]
-		public static var runIconInactive: Class;
-
 		[Embed(source="/assets/icons/input_blue_48x48.png")]
 		[Bindable]
 		public static var inputIcon: Class;
@@ -25,14 +21,6 @@ package gal.util {
 		[Embed(source="/assets/icons/logout_blue_48x48.png")]
 		[Bindable]
 		public static var logoutIcon: Class;
-
-		[Embed(source="/assets/icons/save_blue_48x48.png")]
-		[Bindable]
-		public static var saveIcon: Class;
-
-		[Embed(source="/assets/icons/load_blue_48x48.png")]
-		[Bindable]
-		public static var loadIcon: Class;
 
 		[Embed(source="/assets/icons/next_blue_48x48.png")]
 		[Bindable]
