@@ -35,7 +35,7 @@ package gal.model {
 		}
 
 		public function refreshOutput():void{
-			_outputIndex = 0;
+			outputIndex = 0;
 			dispatchEvent(new Event("sequenceSelectionChange"));
 		}
 
