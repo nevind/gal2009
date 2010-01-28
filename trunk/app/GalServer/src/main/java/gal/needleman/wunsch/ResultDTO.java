@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class ResultDTO {
 
-	private List<String> listOfSequences;
-	private double similarityValue;
+	private List<String> listOfSequences;		// List of resulting sequences
+	private double similarityValue;				// Similarity value for sequences matching
 
 	/**
 	 * @return the listOfSequences

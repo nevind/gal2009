@@ -4,14 +4,14 @@
 package gal.needleman.wunsch;
 
 /**
- *
+ * RequestDTO object contains information about input sequences, similarity matrix and gap penalty for missed match.
  */
 public class RequestDTO {
 
-	private String sequence1;
-	private String sequence2;
-	private double[] similarityMatrix;
-	private double gapPenalty;
+	private String sequence1;			// First input sequence
+	private String sequence2;			// Second input sequence
+	private double[] similarityMatrix;	// Similarity matrix for sequence's alphabet
+	private double gapPenalty;			// Gap penalty for sequence inconsistency.
 
 	/**
 	 * @return the sequence1
@@ -50,6 +50,11 @@ public class RequestDTO {
 		return similarityMatrix;
 	}
 
+	/**
+	 * Returns the similarity matrix in 2-dimensional format for serialization purposes.
+	 * 
+	 * @return the similarityMatrix
+	 */
 	public double[][] getSimilarityMatrix2D() {
 		double[][] result = new double[4][4];
 		for (int i = 0; i < 4; i++)
