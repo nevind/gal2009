@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!---
+Input panel - provides information entry point for user interaction.
+
+@see mx.containers.Panel
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:validation="gal.view.validators.*" xmlns:util="gal.util.*"
 	layout="absolute">
 
@@ -10,9 +15,21 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 
+			/**
+			 * Model locator for binding data into the view
+			 * 
+			 * @see gal.model.GalModelLocator
+			 * @private
+			 */
 			[Bindable]
 			private var model: GalModelLocator = GalModelLocator.getInstance();
 
+			/**
+			 * Method for running the algorithm at the backend using provided data.
+			 * If user's input is valid, the data is set in the model, a proper 
+			 * business event is dispatched to the front controller. Otherwise,
+			 * the user is informed about incorect data with an Alert box.
+			 */
 			public function runSequenceHandler(): void {
 				if (inputValidationWrapper.check()) {
 					model.gapPenalty = parseFloat(gapPenaltyInput.text);
@@ -26,22 +43,53 @@
 		]]>
 	</mx:Script>
 
+	<!---
+	Validator wrapper used for calling multiple validators at once and conditional method invocation.
+	
+	@see gal.util.ValidatorWrapper
+	-->
 	<util:ValidatorWrapper id="inputValidationWrapper">
 		<util:validators>
+			<!---
+			Validator used to check the confusion / similarity matrix.
+			
+			@see gal.view.validators.ConfusionMatrixValidator
+			-->
 			<validation:ConfusionMatrixValidator id="confusionMatrixValidator" source="{confusionGrid}"
 				property="dataProvider" confusionMatrixError="Confusion matrix is invalid" trigger="{confusionGrid}"
 				triggerEvent="focusOut" />
+			<!---
+			Validator used to check if the gap penalty entered by the user is a proper number.
+			
+			@see mx.validators.NumberValidator
+			-->
 			<mx:NumberValidator id="gapPenaltyValidator" source="{gapPenaltyInput}" property="text" required="true"
 				requiredFieldError="Gap penalty is required for further processing" />
+			<!---
+			Validator used to check validity of first DNA sequence input.
+			
+			@see gal.view.validators.InputSequenceValidator
+			-->
 			<validation:InputSequenceValidator id="inputSequence1Validator" source="{sequenceInput1}" property="text"
 				required="true" requiredFieldError="DNA sequence is required for further processing"
 				sequenceError="DNA sequence is invalid" />
+			<!---
+			Validator used to check validity of second DNA sequence input.
+			
+			@see gal.view.validators.InputSequenceValidator
+			-->
 			<validation:InputSequenceValidator id="inputSequence2Validator" source="{sequenceInput2}" property="text"
 				required="true" requiredFieldError="DNA sequence is required for further processing"
 				sequenceError="DNA sequence is invalid" />
 		</util:validators>
 	</util:ValidatorWrapper>
-	<mx:HBox top="35" left="10" right="10" bottom="10" horizontalGap="20">
+	
+	<!---
+	Data input part of the view.
+	
+	@see mx.containers.HBox
+	-->
+	<mx:HBox id="inputBox" top="35" left="10" right="10" bottom="10" horizontalGap="20">
 		<mx:VBox verticalGap="15" height="100%">
 			<mx:Label fontFamily="Chintzy" fontSize="16" text="Confusion Matrix" color="#FFFFFF" />
 			<mx:Canvas>
@@ -59,6 +107,11 @@
 					<mx:Image source="{IconManager.thymineImg}" width="95" height="24" />
 				</mx:VBox>
 
+				<!---
+				Datagrid used for confusion matrix input. Bound to data model variable.
+				
+				@see mx.controls.DataGrid
+				-->
 				<mx:DataGrid top="30" left="102" id="confusionGrid" width="400" height="106" rowHeight="26"
 					dataProvider="{model.confusionMatrix}" showHeaders="false" editable="true" color="#FFFFFF">
 					<mx:columns>
@@ -70,18 +123,48 @@
 				</mx:DataGrid>
 			</mx:Canvas>
 			<mx:Label fontFamily="Chintzy" fontSize="16" text="Gap Penalty" color="#FFFFFF" />
+			<!---
+			Gap penalty input.
+			
+			@see mx.controls.TextInput
+			-->
 			<mx:TextInput id="gapPenaltyInput" text="{model.gapPenalty}" width="100%" color="#FFFFFF" />
 			<mx:Label fontFamily="Chintzy" fontSize="16" text="Sequence Input" color="#FFFFFF" />
+			<!---
+			First DNA sequence input.
+			
+			@see mx.controls.TextArea
+			-->
 			<mx:TextArea id="sequenceInput1" text="{model.sequence1}" width="100%" height="100%" color="#FFFFFF" />
+			<!---
+			Second DNA sequence input.
+			
+			@see mx.controls.TextArea
+			-->
 			<mx:TextArea id="sequenceInput2" text="{model.sequence2}" width="100%" height="100%" color="#FFFFFF" />
 		</mx:VBox>
-		<mx:VBox verticalGap="15" height="100%" width="100%">
+		<!---
+		Sequence data visualisation part of the view. The content is updated accordingly to data provided
+		by the user. Nucleotides are marked with proper images. Errors are prompted to the user as well.
+		@see mx.containers.HBox
+		-->
+		<mx:VBox id="visualisationBox" verticalGap="15" height="100%" width="100%">
 			<mx:Label fontFamily="Chintzy" fontSize="16" text="Sequence Visualization" color="#FFFFFF" />
 			<mx:HBox verticalGap="15" width="100%" height="100%">
 				<!--mx:TextArea width="100%" height="100%" color="#FFFFFF" /-->
+				<!---
+				Data visualisation tile-list. Used to display user's data input visually.
+				
+				@see mx.controls.TileList
+				-->
 				<mx:TileList id="sequenceVis1" width="100%" height="100%" color="#FFFFFF" direction="vertical"
 					maxRows="40" dataProvider="{sequenceInput1.text.split('')}"
 					itemRenderer="gal.view.renderers.DnaRenderer" selectable="false" />
+				<!---
+				Data visualisation tile-list. Used to display user's data input visually.
+				
+				@see mx.controls.TileList
+				-->
 				<mx:TileList id="sequenceVis2" width="100%" height="100%" color="#FFFFFF" direction="vertical"
 					maxRows="40" dataProvider="{sequenceInput2.text.split('')}"
 					itemRenderer="gal.view.renderers.DnaRenderer" selectable="false" />

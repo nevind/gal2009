@@ -3,6 +3,10 @@ package gal.events {
 
 	import flash.events.Event;
 
+	/**
+	 * Logout cairngorm (business) event dispatched from header panel. It triggers
+	 * the logout command via the front controller.
+	 */
 	public class LogoutEvent extends CairngormEvent {
 		public static const LOGOUT: String = "gal.events.LogoutEvent";
 

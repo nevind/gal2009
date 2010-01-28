@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!---
+Information panel - gives short information about the GAL/Helix project.
+
+@see mx.containers.Panel
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
 	<mx:VBox top="30" left="10" right="10" bottom="10">
 		<mx:TextArea id="infoArea" fontFamily="Chintzy" fontSize="20" color="#FFFFFF" focusAlpha="0" borderStyle="none"

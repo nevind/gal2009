@@ -9,6 +9,11 @@ package gal.commands {
 
 	public class LoginCommand implements ICommand {
 
+		/**
+		 * The run login class. Invoked when login event is dispatched to the
+		 * front controller. It casts received event to the relevant type and calls delegate for
+		 * the business logic
+		 */
 		public function execute(eventParam: CairngormEvent): void {
 			var event: LoginEvent = eventParam as LoginEvent;
 

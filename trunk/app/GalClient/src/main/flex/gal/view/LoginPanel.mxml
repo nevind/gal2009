@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!---
+Login panel. Used for logging in by the user.
+
+@see mx.containers.Panel
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="gal.model.*" width="298" height="104" layout="absolute"
 	title="Helix" color="#FFFFFF">
 
@@ -17,6 +22,9 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 
+			/**
+			 * Method used for logging in the user and cleaning the view
+			 */ 
 			public function loginClick(event: MouseEvent): void {
 				new LoginEvent(loginInput.text, passInput.text).dispatch();
 				loginInput.text = "";

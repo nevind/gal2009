@@ -5,6 +5,10 @@ package gal.delegates {
 
 	import mx.rpc.IResponder;
 
+	/**
+	 * A delegate for invoking business logic behind run sequence command. The delegate
+	 * invokes business logic of the service and relays output handling to a proper responder.
+	 */
 	public class RunSequenceDelegate {
 		private var responder: IResponder;
 

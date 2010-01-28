@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!---
+Main application view. Contains action viewstack that incorporates input, output and info views.
+
+@see mx.containers.Canvas
+-->
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:view="gal.view.*"
 	xmlns:slide="org.efflex.mx.pairViewStackEffects.*" width="100%" height="100%">
 	<mx:Script>
 		<![CDATA[
 			import gal.model.GalModelLocator;
 
+			/**
+			 * Model locator for binding data into the view
+			 * 
+			 * @see gal.model.GalModelLocator
+			 * @private
+			 */
 			[Bindable]
 			private var model: GalModelLocator = GalModelLocator.getInstance();
 		]]>
 	</mx:Script>
 
+	<!---
+	Efflex slide effect.
+	
+	@see www.efflex.org
+	-->
 	<slide:Slide id="switchEffect" fromDirection="up" toDirection="down" duration="100" transparent="true" />
 
 	<mx:VBox width="100%" height="100%">
 		<view:HeaderPanel width="100%" height="80" run="inputPanel.runSequenceHandler()" />
 		<mx:ViewStack id="actionStack" width="100%" height="100%" selectedIndex="{model.actionViewState}">
 			<mx:Canvas showEffect="switchEffect" hideEffect="switchEffect">
+				<!---
+				Input panel.
+				
+				@see gal.view.InputPanel
+				-->
 				<view:InputPanel id="inputPanel" width="100%" height="100%" />
 			</mx:Canvas>
 			<mx:Canvas showEffect="switchEffect" hideEffect="switchEffect">
+				<!---
+				Output panel.
+				
+				@see gal.view.OutputPanel
+				-->
 				<view:OutputPanel id="outputPanel" width="100%" height="100%" />
 			</mx:Canvas>
 			<mx:Canvas showEffect="switchEffect" hideEffect="switchEffect">
+				<!---
+				Info view.
+				
+				@see gal.view.InfoPanel
+				-->
 				<view:InfoPanel id="infoPanel" width="100%" height="100%" />
 			</mx:Canvas>
 		</mx:ViewStack>
