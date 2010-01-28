@@ -4,17 +4,18 @@
 package gal.needleman.wunsch;
 
 /**
- *
+ * FMatrixElement class represents value contained by F matrix extended by attributes pointing
+ * possible directions while building result sequences.
  */
 public class FMatrixElement {
 
-	double value;
-	boolean up;
-	boolean left;
-	boolean diagonal;
+	double value;		// Original value
+	boolean up;			// Whether value could be result of computing from upper record
+	boolean left;		// Whether value could be result of computing from left record
+	boolean diagonal;	// Whether value could be result of computing from diagonal record
 
 	/**
-	 * 
+	 * Default constructor sets all directions to false.
 	 */
 	public FMatrixElement() {
 		this.up = false;
