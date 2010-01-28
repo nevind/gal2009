@@ -149,7 +149,7 @@ public class NeedlemanWunsch {
 
 		// Going through all possible routes in F matrix
 		while (sequence1Pos > 0 && sequence2Pos > 0) {
-			// Count variable points how many recursion calls should by made
+			// Count variable points out how many recursion calls should by made
 			int count = findPossibilitiesCount(sequence1Pos, sequence2Pos);
 
 			int tmpSeq1Pos = sequence1Pos;
@@ -158,6 +158,7 @@ public class NeedlemanWunsch {
 			// If diagonal transition is possible
 			if (fMatrix[tmpSeq1Pos][tmpSeq2Pos].isDiagonal()) {
 				if (count > 1) {
+					// Recursion call
 					resultList.addAll(generateListOfSequences(tmpSeq1Pos - 1, tmpSeq2Pos - 1, 
 							new StringBuilder(chain1).insert(0, sequence1.charAt(tmpSeq1Pos - 1)).toString(), 
 							new StringBuilder(chain2).insert(0, sequence2.charAt(tmpSeq2Pos - 1)).toString()));
@@ -170,9 +171,10 @@ public class NeedlemanWunsch {
 				}
 			}
 
-			// If lefttransition is possible
+			// If left transition is possible
 			if (fMatrix[tmpSeq1Pos][tmpSeq2Pos].isLeft()) {
 				if (count > 1) {
+					// Recursion call
 					resultList.addAll(generateListOfSequences(tmpSeq1Pos, tmpSeq2Pos - 1, 
 							new StringBuilder(chain1).insert(0, '-').toString(), 
 							new StringBuilder(chain2).insert(0, sequence2.charAt(tmpSeq2Pos - 1)).toString()));
@@ -191,9 +193,11 @@ public class NeedlemanWunsch {
 			}
 		}
 
+		// Chains finalization if any of the sequences has not been completed
 		finalizeChains(sequence1Pos, sequence2Pos, chain1, chain2);
 
-		if (this.resultsCount < 100) {
+		// Limiting results count
+		if (this.resultsCount < MAX_RESULTS_COUNT) {
 			resultList.add(chain1.toString());
 			resultList.add(chain2.toString());
 			this.resultsCount++;
@@ -345,7 +349,7 @@ public class NeedlemanWunsch {
 	}
 	
 	/**
-	 * Method printing results used for debug purposes.
+	 * Method printing to standard output computed results used for debug purposes.
 	 */
 	private void printResults() {
 		for (int j = 0; j <= this.sequence2.length(); j++) {
