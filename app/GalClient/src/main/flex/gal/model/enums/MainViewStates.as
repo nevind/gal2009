@@ -1,5 +1,9 @@
 package gal.model.enums {
 
+	/**
+	 * Enumeration of main view possible states. It serves as a 'selected item' binding
+	 * source for view stacks using main views.
+	 */
 	public class MainViewStates {
 		public function MainViewStates() {
 		}

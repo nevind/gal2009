@@ -2,6 +2,12 @@ package gal.view.validators {
 	import mx.validators.ValidationResult;
 	import mx.validators.Validator;
 
+	/**
+	 * Input sequence validator validates whether DNA sequence entered in a text area by the user is valid.
+	 * It uses a regular expression as a mean of validation.
+	 * 
+	 * @see mx.validators.Validator
+	 */
 	public class InputSequenceValidator extends Validator {
 		public function InputSequenceValidator() {
 			super();
@@ -9,14 +15,24 @@ package gal.view.validators {
 
 		private var _sequenceError: String;
 
+		/**
+		 * Sequence error string.
+		 */
 		public function get sequenceError(): String {
 			return _sequenceError;
 		}
 
+		/**
+		 * @private
+		 */
 		public function set sequenceError(value: String): void {
 			_sequenceError = value;
 		}
 
+		/**
+		 * Main validation method facilitating regular expression.
+		 * The input cannot be empty or contain letters other than ACTG
+		 */
 		override protected function doValidation(value: Object): Array {
 			var validatorResults: Array = new Array();
 			var pattern: RegExp = /^[ACGT]*$/

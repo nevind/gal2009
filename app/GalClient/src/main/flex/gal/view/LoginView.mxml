@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!---
+Canvas used for centering the login view.
+
+@see mx.containers.Canvas
+-->
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:view="gal.view.*">
 	<view:LoginPanel horizontalCenter="0" verticalCenter="0" />
 </mx:Canvas>

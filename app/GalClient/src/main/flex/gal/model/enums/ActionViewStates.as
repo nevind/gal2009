@@ -1,5 +1,9 @@
 package gal.model.enums {
 
+	/**
+	 * Enumeration of action view possible states. It serves as a 'selected item' binding
+	 * source for view stacks using action views.
+	 */
 	public class ActionViewStates {
 		public function ActionViewStates() {
 		}

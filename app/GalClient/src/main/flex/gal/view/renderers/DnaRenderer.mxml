@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!---
+Helper component used for graphical rendering of visualisation tile lists.
+
+@see mx.containers.Canvas
+-->
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" dataChange="onDataChange(event)">
 	<mx:Script>
 		<![CDATA[
@@ -8,6 +13,9 @@
 
 			private var value:String="";
 
+			/**
+			 * Data change handler. The data change event is dispatched by the outer tile list.
+			 */
 			protected function onDataChange(event:FlexEvent):void
 			{
 				if (data!=null)
@@ -33,6 +41,11 @@
 		]]>
 	</mx:Script>
 
+	<!---
+	The image used for rendering current item.
+	
+	@see mx.controls.Image
+	-->
 	<mx:Image id="renderImage" width="60" height="15"/>
 
 </mx:Canvas>

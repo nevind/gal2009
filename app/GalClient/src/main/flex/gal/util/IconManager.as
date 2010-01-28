@@ -1,5 +1,8 @@
 package gal.util {
 
+	/**
+	 * Utility class providing icons and images for other classes.
+	 */
 	public class IconManager {
 
 		[Embed(source="/assets/icons/run_blue_48x48.png")]

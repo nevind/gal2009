@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!---
+Application's header panel. Contains the control buttons to perform data editing and triggering computation.
+
+@see mx.containers.Panel
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
 
 	<mx:Metadata>
+		/**
+		 * Custom event dispatched whenever the user chooses to run computation.
+		 * 
+		 * @see flash.events.Event
+		 */
 		[Event(name="run", type="gal.view.events.RunEvent")]
 	</mx:Metadata>
 
@@ -14,50 +24,130 @@
 			import gal.util.IconManager;
 			import gal.view.events.RunEvent;
 
+			/**
+			 * Model locator for binding data into the view
+			 * 
+			 * @see gal.model.GalModelLocator
+			 * @private
+			 */
 			[Bindable]
 			private var model: GalModelLocator = GalModelLocator.getInstance();
 
-			public function run(): void {
+			/**
+			 * Method used for dispatching the 'run' event from the header panel outside.
+			 * 
+			 * @private
+			 */
+			private function run(): void {
 				dispatchEvent(new RunEvent(RunEvent.RUN));
 			}
-
+			/**
+			 * Method used for dispatching 'logout' business event
+			 * 
+			 * @private
+			 */
 			private function logout(): void {
 				new LogoutEvent().dispatch();
 			}
-
+			
+			/**
+			 * Method for switching to the input view.
+			 * 
+			 * @private
+			 */
 			private function showInputView(): void {
 				model.actionViewState = ActionViewStates.INPUT_VIEW;
 			}
 
+			/**
+			 * Method for switching to the output view.
+			 * 
+			 * @private
+			 */
 			private function showOutputView(): void {
 				model.actionViewState = ActionViewStates.OUTPUT_VIEW;
 			}
 
+			/**
+			 * Method for switching to the info view.
+			 */
 			private function showInfoView(): void {
 				model.actionViewState = ActionViewStates.INFO_VIEW;
 			}
 		]]>
 	</mx:Script>
 
+	<!---
+	A glow-in effect used for buttons' highlighting.
+	
+	@see mx.effects.Glow
+	-->
 	<mx:Glow id="glowInImage" duration="100" alphaFrom="0.0" alphaTo="1.0" blurXFrom="10.0" blurXTo="50.0"
 		blurYFrom="10.0" blurYTo="50.0" strength="3" color="#50D2FF" />
 
+	<!---
+	A glow-out effect used for buttons' highlighting.
+	
+	@see mx.effects.Glow
+	-->
 	<mx:Glow id="glowOutImage" duration="100" alphaFrom="1.0" alphaTo="0.0" blurXFrom="50.0" blurXTo="10.0"
 		blurYFrom="50.0" blurYTo="10.0" strength="3" color="#50D2FF" />
+	
+	<!---
+	A glow-in effect used for masking and background redraw - a framework's bug workaround.
+	
+	@see mx.effects.Glow
+	-->
 	<mx:Glow id="fakeGlow" duration="100" alphaFrom="0.0" alphaTo="0.0" blurXFrom="10.0" blurXTo="50.0" blurYFrom="10.0"
 		blurYTo="50.0" color="#FFFFFF" />
-
+	
+	<!---
+	Application's header label.
+	
+	@see mx.controls.Label
+	-->
 	<mx:Label top="25" left="10" text="Helix" fontSize="48" fontFamily="Chintzy" color="#FFFFFF" />
+	
+	<!---
+	Horizontal box used as a control bar.
+	
+	@see mx.containers.HBox
+	-->
 	<mx:HBox top="20" right="10" width="100%" height="100%" horizontalAlign="right" horizontalGap="2" verticalGap="0"
 		rollOverEffect="fakeGlow" rollOutEffect="fakeGlow">
+		<!---
+		Image with glow-in and glow-out effects, used as a 'run' button.
+		
+		@see mx.controls.Image
+		-->
 		<mx:Image id="runButton" source="{IconManager.runIcon}" rollOverEffect="glowInImage"
 			rollOutEffect="glowOutImage" click="run();" />
+		<!---
+		Image with glow-in and glow-out effects, used as an 'input' button.
+		
+		@see mx.controls.Image
+		-->
 		<mx:Image id="inputButton" source="{IconManager.inputIcon}" rollOverEffect="glowInImage"
 			rollOutEffect="glowOutImage" click="showInputView();" />
+		<!---
+		Image with glow-in and glow-out effects, used as an 'output' button.
+		
+		@see mx.controls.Image
+		-->
 		<mx:Image id="outputButton" source="{IconManager.outputIcon}" rollOverEffect="glowInImage"
 			rollOutEffect="glowOutImage" click="showOutputView();" />
+		<!---
+		Image with glow-in and glow-out effects, used as a 'results' button.
+		
+		@see mx.controls.Image
+		-->
 		<mx:Image id="infoButton" source="{IconManager.infoIcon}" rollOverEffect="glowInImage"
 			rollOutEffect="glowOutImage" click="showInfoView();" />
+		<!---
+		Image with glow-in and glow-out effects, used as a 'logout' button.
+		
+		@see mx.controls.Image
+		-->
 		<mx:Image id="logoutButton" source="{IconManager.logoutIcon}" rollOverEffect="glowInImage"
 			rollOutEffect="glowOutImage" click="logout();" />
 	</mx:HBox>

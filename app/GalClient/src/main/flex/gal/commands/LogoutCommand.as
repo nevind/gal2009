@@ -7,6 +7,11 @@ package gal.commands {
 	import gal.responders.LogoutResponder;
 
 
+	/**
+	 * The run logout class. Invoked when logut event is dispatched to the
+	 * front controller. It casts received event to the relevant type and calls delegate for
+	 * the business logic
+	 */
 	public class LogoutCommand implements ICommand {
 
 		public function execute(eventParam: CairngormEvent): void {

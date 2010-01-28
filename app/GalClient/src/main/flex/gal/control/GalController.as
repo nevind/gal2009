@@ -8,6 +8,10 @@ package gal.control {
 	import gal.events.LogoutEvent;
 	import gal.events.RunSequenceEvent;
 
+	/**
+	 * Singleton class used for event dispatching. In Cairngorm, front controllers are
+	 * used to route events to commands.
+	 */
 	public class GalController extends FrontController {
 		public function GalController() {
 			addCommand(LoginEvent.LOGIN, LoginCommand);

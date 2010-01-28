@@ -6,6 +6,11 @@ package gal.commands {
 	import gal.events.RunSequenceEvent;
 	import gal.responders.RunSequenceResponder;
 
+	/**
+	 * The run sequence command class. Invoked when run command event is dispatched to the
+	 * front controller. It casts received event to the relevant type and calls delegate for
+	 * the business logic
+	 */
 	public class RunSequenceCommand implements ICommand {
 		public function execute(eventParam: CairngormEvent): void {
 			var event: RunSequenceEvent = eventParam as RunSequenceEvent;
